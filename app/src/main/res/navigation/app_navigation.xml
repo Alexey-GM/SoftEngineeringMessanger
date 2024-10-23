@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_navigation"
+    app:startDestination="@id/navigation_chats">
+
+    <fragment
+        android:id="@+id/navigation_login"
+        android:name="com.example.softengineeringmessanger.ui.auth.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_register"
+        android:name="com.example.softengineeringmessanger.ui.auth.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" >
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_chats"
+        android:name="com.example.softengineeringmessanger.ui.chat.ChatFragment"
+        android:label="@string/title_chats"
+        tools:layout="@layout/fragment_chat" />
+    <fragment
+        android:id="@+id/navigation_contacts"
+        android:name="com.example.softengineeringmessanger.ui.contacts.ContactsFragment"
+        android:label="@string/title_contacts"
+        tools:layout="@layout/fragment_contacts" />
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.example.softengineeringmessanger.ui.profile.ProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile" />
+</navigation>

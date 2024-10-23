@@ -1,8 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    id("kotlin-android-extensions")
     id("kotlin-kapt")
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -35,6 +35,9 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -50,15 +53,18 @@ dependencies {
 
 
     // https://mvnrepository.com/artifact/com.squareup.retrofit2/retrofit
-    implementation("com.squareup.retrofit2:retrofit:2.8.2")
+    implementation(libs.retrofit)
     // https://mvnrepository.com/artifact/com.squareup.retrofit2/converter-gson
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation(libs.converter.gson)
     // https://mvnrepository.com/artifact/com.google.dagger/dagger
-    implementation("com.google.dagger:dagger:2.51.1")
+    implementation(libs.dagger)
     // https://mvnrepository.com/artifact/com.github.bumptech.glide/glide
-    implementation("com.github.bumptech.glide:glide:4.16.0")
-
-    kapt("com.google.dagger:dagger-compiler:2.51.1")
+    implementation(libs.glide)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
+    kapt(libs.dagger.compiler)
 }
 kapt {
     correctErrorTypes = true
