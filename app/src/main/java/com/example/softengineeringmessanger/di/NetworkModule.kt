@@ -1,5 +1,6 @@
 package com.example.softengineeringmessanger.di
 
+import com.example.softengineeringmessanger.data.nw.MessengerApiService
 import com.example.softengineeringmessanger.data.nw.UserApiService
 import dagger.Module
 import dagger.Provides
@@ -11,5 +12,10 @@ class NetworkModule {
     @Singleton
     fun provideUserApiService(): UserApiService {
         return UserApiService.createApiService()
+    }
+    @Provides
+    @Singleton
+    fun provideMessengerApiService(): MessengerApiService {
+        return MessengerApiService.createApiService()
     }
 }

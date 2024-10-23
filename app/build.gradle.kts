@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     id("kotlin-kapt")
     id("androidx.navigation.safeargs.kotlin")
+    id("io.realm.kotlin")
 }
 
 android {
@@ -68,6 +69,7 @@ dependencies {
     implementation (libs.logging.interceptor)
     kapt(libs.dagger.compiler)
     kapt(libs.dagger.compiler.v246)
+    implementation(libs.realm.android.library)
 }
 kapt {
     correctErrorTypes = true

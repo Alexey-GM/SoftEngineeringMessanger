@@ -8,7 +8,15 @@ import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [NetworkModule::class, UserRepositoryModule::class, SharedPreferencesModule::class])
+@Component(
+    modules = [
+        NetworkModule::class,
+        UserRepositoryModule::class,
+        SharedPreferencesModule::class,
+        RealmModule::class,
+        ChatRepositoryModule::class
+    ]
+)
 interface AppComponent {
     fun inject(loginViewModel: LoginViewModel)
     fun inject(loginFragment: LoginFragment)
