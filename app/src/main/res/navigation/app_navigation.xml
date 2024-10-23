@@ -10,12 +10,24 @@
         android:name="com.example.softengineeringmessanger.ui.auth.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_navigation_login_to_navigation_register"
+            app:destination="@id/navigation_register" />
+        <action
+            android:id="@+id/action_navigation_login_to_navigation_chats"
+            app:destination="@id/navigation_chats" />
     </fragment>
     <fragment
         android:id="@+id/navigation_register"
         android:name="com.example.softengineeringmessanger.ui.auth.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_navigation_register_to_navigation_login"
+            app:destination="@id/navigation_login" />
+        <action
+            android:id="@+id/action_navigation_register_to_navigation_chats"
+            app:destination="@id/navigation_chats" />
     </fragment>
     <fragment
         android:id="@+id/navigation_chats"

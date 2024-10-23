@@ -64,7 +64,10 @@ dependencies {
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.okhttp)
+    implementation (libs.logging.interceptor)
     kapt(libs.dagger.compiler)
+    kapt(libs.dagger.compiler.v246)
 }
 kapt {
     correctErrorTypes = true
