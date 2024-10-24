@@ -5,56 +5,104 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.softengineeringmessanger.ChatApp
 import com.example.softengineeringmessanger.R
+import com.example.softengineeringmessanger.databinding.FragmentChatBinding
+import com.example.softengineeringmessanger.databinding.FragmentChatListBinding
+import com.example.softengineeringmessanger.databinding.FragmentContactsBinding
+import com.example.softengineeringmessanger.domain.model.Chat
+import com.example.softengineeringmessanger.domain.model.User
+import com.example.softengineeringmessanger.ui.chat.ChatViewModel
+import com.example.softengineeringmessanger.ui.contacts.ContactsAdapter
+import com.example.softengineeringmessanger.ui.contacts.ContactsUiState
+import com.example.softengineeringmessanger.ui.contacts.ContactsViewModel
+import com.example.softengineeringmessanger.ui.contacts.ContactsViewModelFactory
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [ChatListFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ChatListFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    @Inject
+    lateinit var chatsListViewModelFactory: ChatsListViewModelFactory
+    private lateinit var viewModel: ChatsListViewModel
+
+    private var _binding: FragmentChatListBinding? = null
+    private val binding get() = _binding!!
+    private val adapter = ChatsAdapter {
+        navigateToChat(it)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+        (requireActivity().application as ChatApp).appComponent.inject(this)
+        viewModel = ViewModelProvider(this, chatsListViewModelFactory)[ChatsListViewModel::class.java]
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_chat_list, container, false)
+    ): View {
+        _binding = FragmentChatListBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ChatListFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ChatListFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.rvChats.adapter = adapter
+        binding.rvChats.layoutManager = LinearLayoutManager(requireContext())
+        observeState()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun observeState() {
+        lifecycleScope.launch {
+            viewModel.uiState.collect { state ->
+                when (state) {
+                    is ChatsListUiState.Loading -> {
+                        showLoadingIndicator()
+                    }
+                    is ChatsListUiState.Success -> {
+                        updateUI(state.chats)
+                    }
+                    is ChatsListUiState.Error -> {
+                        showError(state.message)
+                    }
                 }
             }
+        }
+    }
+
+    private fun showLoadingIndicator() {
+        binding.pbLoading.visibility = View.VISIBLE
+        binding.rvChats.visibility = View.GONE
+    }
+
+    private fun updateUI(chats: List<Chat>) {
+        adapter.submitList(chats)
+        binding.rvChats.visibility = View.VISIBLE
+        binding.pbLoading.visibility = View.GONE
+    }
+
+    private fun showError(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+        binding.pbLoading.visibility = View.GONE
+    }
+
+    private fun observeSearch() {
+        binding.btSearch.setOnClickListener {
+            /*val query = binding.etSearch.text.toString()
+            viewModel.fetchUsers(query)*/
+        }
+    }
+
+    private fun navigateToChat(it: Int) {
+
     }
 }

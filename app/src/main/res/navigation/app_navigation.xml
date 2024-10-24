@@ -31,17 +31,37 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_chats"
-        android:name="com.example.softengineeringmessanger.ui.chat.ChatFragment"
+        android:name="com.example.softengineeringmessanger.ui.chats.ChatListFragment"
         android:label="@string/title_chats"
-        tools:layout="@layout/fragment_chat" />
+        tools:layout="@layout/fragment_chat" >
+        <action
+            android:id="@+id/action_navigation_chats_to_destination_fragment_chat"
+            app:destination="@id/destination_fragment_chat" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_contacts"
         android:name="com.example.softengineeringmessanger.ui.contacts.ContactsFragment"
         android:label="@string/title_contacts"
-        tools:layout="@layout/fragment_contacts" />
+        tools:layout="@layout/fragment_contacts" >
+        <action
+            android:id="@+id/action_navigation_contacts_to_chatFragment"
+            app:destination="@id/destination_fragment_chat" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_profile"
         android:name="com.example.softengineeringmessanger.ui.profile.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/destination_fragment_chat"
+        android:name="com.example.softengineeringmessanger.ui.chat.ChatFragment"
+        android:label="fragment_chat"
+        tools:layout="@layout/fragment_chat" >
+        <argument
+            android:name="companionId"
+            app:argType="integer" />
+        <argument
+            android:name="companionUsername"
+            app:argType="string" />
+    </fragment>
 </navigation>

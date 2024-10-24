@@ -1,15 +1,16 @@
 package com.example.softengineeringmessanger.di
 
+import android.app.Application
 import dagger.Module
 import dagger.Provides
-import io.realm.Realm
 import javax.inject.Singleton
 
+
 @Module
-class RealmModule {
+class AppModule(var mApplication: Application) {
     @Provides
     @Singleton
-    fun provideRealmInstance(): Realm {
-        return Realm.getDefaultInstance()
+    fun providesApplication(): Application {
+        return mApplication
     }
 }

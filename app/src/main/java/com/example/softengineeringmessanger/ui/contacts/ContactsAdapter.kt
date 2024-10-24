@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.softengineeringmessanger.databinding.ItemContactBinding
 import com.example.softengineeringmessanger.domain.model.User
 
-class ContactsAdapter(private val onIconClick: (Int) -> Unit) :
+class ContactsAdapter(private val onIconClick: (User) -> Unit) :
     ListAdapter<User, ContactsAdapter.ContactsViewHolder>(
         NewsDiffCallback()
     ) {
@@ -25,12 +25,12 @@ class ContactsAdapter(private val onIconClick: (Int) -> Unit) :
 
     inner class ContactsViewHolder(
         private val binding: ItemContactBinding,
-        private val onIconClick: (Int) -> Unit,
+        private val onIconClick: (User) -> Unit,
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(user: User) {
             binding.tvUsername.text = user.login
             binding.ivStartChatting.setOnClickListener {
-                onIconClick(user.id)
+                onIconClick(user)
             }
         }
     }

@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.softengineeringmessanger.domain.UserRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -19,14 +20,14 @@ class LoginViewModel @Inject constructor(
     val registerState: StateFlow<Result<String>?> = _registerState
 
     fun login(login: String, password: String) {
-        viewModelScope.launch {
+        viewModelScope.launch (Dispatchers.IO) {
             val result = userRepository.login(login, password)
             _loginState.value = result
         }
     }
 
     fun register(login: String, password: String) {
-        viewModelScope.launch {
+        viewModelScope.launch (Dispatchers.IO) {
             val result = userRepository.register(login, password)
             _registerState.value = result
         }

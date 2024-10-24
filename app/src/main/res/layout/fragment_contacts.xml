@@ -6,25 +6,37 @@
     android:layout_height="match_parent"
     tools:context=".ui.contacts.ContactsFragment">
 
-    <SearchView
-        android:id="@+id/sbSearch"
+    <EditText
+        android:id="@+id/etSearch"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btSearch"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginTop="8dp"/>
 
+    <Button
+        style="?attr/materialIconButtonStyle"
+        android:id="@+id/btSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:icon="@drawable/ic_search"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/etSearch"
+        app:layout_constraintBottom_toBottomOf="@id/etSearch"
+        android:layout_marginEnd="8dp"
+        />
+    
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
         android:text="@string/title_contacts"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/sbSearch" />
+        app:layout_constraintTop_toBottomOf="@id/etSearch"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvContacts"
@@ -34,6 +46,7 @@
         android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
     <ProgressBar

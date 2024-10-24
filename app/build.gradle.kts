@@ -1,9 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    id("kotlin-kapt")
     id("androidx.navigation.safeargs.kotlin")
-    id("io.realm.kotlin")
+    id("kotlin-kapt")
 }
 
 android {
@@ -69,7 +68,11 @@ dependencies {
     implementation (libs.logging.interceptor)
     kapt(libs.dagger.compiler)
     kapt(libs.dagger.compiler.v246)
-    implementation(libs.realm.android.library)
+    implementation("androidx.room:room-runtime:2.6.1")
+    annotationProcessor("androidx.room:room-compiler:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
+
 }
 kapt {
     correctErrorTypes = true

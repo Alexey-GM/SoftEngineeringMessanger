@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.softengineeringmessanger.domain.UserRepository
 import com.example.softengineeringmessanger.ui.auth.LoginViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -23,7 +24,7 @@ class ContactsViewModel @Inject constructor(
 
     fun fetchUsers(included: String?) {
         _uiState.value = ContactsUiState.Loading
-        viewModelScope.launch {
+        viewModelScope.launch (Dispatchers.IO) {
             val result = userRepository.getUsers(included)
             if (result.isSuccess) {
                 val users = result.getOrNull() ?: emptyList()
