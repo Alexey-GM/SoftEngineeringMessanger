@@ -21,14 +21,14 @@ class LoginFragment : Fragment() {
     private val binding get() = _binding!!
 
     @Inject
-    lateinit var viewModelFactory: ViewModelFactory
+    lateinit var loginViewModelFactory: LoginViewModelFactory
 
     private lateinit var viewModel: LoginViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (requireActivity().application as ChatApp).appComponent.inject(this)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(LoginViewModel::class.java)
+        viewModel = ViewModelProvider(this, loginViewModelFactory).get(LoginViewModel::class.java)
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,11 +49,11 @@ class LoginFragment : Fragment() {
             viewModel.loginState.collect { result ->
                 result?.let {
                     if (it.isSuccess) {
-                        Toast.makeText(context, it.getOrNull(), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), it.getOrNull(), Toast.LENGTH_SHORT).show()
                         findNavController().navigate(R.id.action_navigation_login_to_navigation_chats)
                     } else {
                         Toast.makeText(
-                            context,
+                            requireContext(),
                             "Ошибка: ${it.exceptionOrNull()?.message}",
                             Toast.LENGTH_SHORT
                         ).show()

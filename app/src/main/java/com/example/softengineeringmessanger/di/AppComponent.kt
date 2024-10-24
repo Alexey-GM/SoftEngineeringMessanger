@@ -3,6 +3,8 @@ package com.example.softengineeringmessanger.di
 import android.app.Application
 import com.example.softengineeringmessanger.ui.auth.LoginFragment
 import com.example.softengineeringmessanger.ui.auth.LoginViewModel
+import com.example.softengineeringmessanger.ui.contacts.ContactsFragment
+import com.example.softengineeringmessanger.ui.contacts.ContactsViewModel
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -19,7 +21,9 @@ import javax.inject.Singleton
 )
 interface AppComponent {
     fun inject(loginViewModel: LoginViewModel)
+    fun inject(contactsViewModel: ContactsViewModel)
     fun inject(loginFragment: LoginFragment)
+    fun inject(contactsFragment: ContactsFragment)
     @Component.Builder
     interface Builder {
         @BindsInstance

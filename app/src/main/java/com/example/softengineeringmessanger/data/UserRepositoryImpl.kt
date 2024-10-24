@@ -4,6 +4,7 @@ import com.example.softengineeringmessanger.data.nw.UserApiService
 import com.example.softengineeringmessanger.data.nw.UserManager
 import com.example.softengineeringmessanger.data.nw.model.AuthRequest
 import com.example.softengineeringmessanger.domain.UserRepository
+import com.example.softengineeringmessanger.domain.model.User
 import javax.inject.Inject
 
 class UserRepositoryImpl @Inject constructor(
@@ -49,5 +50,27 @@ class UserRepositoryImpl @Inject constructor(
 
     override suspend fun update(): Result<String> {
         return Result.success("123")
+    }
+
+    override suspend fun getUsers(included: String?): Result<List<User>> {
+        return try {
+            val response = apiService.getAllUsers(included, userManager.getUserToken() ?: "")
+            if (response.isSuccessful && !response.body().isNullOrEmpty()) {
+                val result = response.body()!!.map {
+                    User(
+                        id = it.id,
+                        login = it.login,
+                        avatarUrl = "",
+                        password = ""
+                    )
+                }
+                Result.success(result)
+            } else {
+                val errorBody = response.errorBody()?.string() ?: "Unknown error"
+                Result.failure(Throwable("Ошибка получения пользователей: $errorBody"))
+            }
+        } catch (e: Exception) {
+            Result.failure(Throwable("Ошибка сети: ${e.message}"))
+        }
     }
 }

@@ -33,7 +33,7 @@ class LoginViewModel @Inject constructor(
     }
 }
 
-class ViewModelFactory @Inject constructor(
+class LoginViewModelFactory @Inject constructor(
     private val userRepository: UserRepository
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

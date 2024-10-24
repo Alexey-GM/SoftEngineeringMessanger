@@ -45,7 +45,6 @@
             android:inputType="textEmailAddress"
             android:padding="12dp"
             android:singleLine="true"
-            android:text="alexey.gaidaii@gmail.ru"
             android:textSize="18sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -73,7 +72,6 @@
             android:inputType="textPassword"
             android:padding="12dp"
             android:singleLine="true"
-            android:text="111"
             android:textSize="18sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
